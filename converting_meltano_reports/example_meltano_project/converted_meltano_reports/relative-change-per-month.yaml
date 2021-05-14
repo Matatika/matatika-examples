@@ -1,0 +1,35 @@
+version: datasets/v0.2
+source: null
+title: Monthly Comparison Stats
+questions: null
+description: Monthly Comparison Stats
+metadata: '{"name": "google_analytics_monthly_comparison_stats", "label": "Monthly
+  Comparison Stats", "related_table": {"columns": [{"name": "year", "description":
+  "Year", "label": "Year"}, {"name": "month", "description": "Month", "label": "Month"},
+  {"name": "month_start", "label": "Month Start Date"}], "aggregates": [{"name": "avg_users_incr",
+  "description": "Users Increase Percent (%)", "label": "Users Increase Percent (%)"},
+  {"name": "avg_new_users_incr", "description": "New Users Increase Percent (%)",
+  "label": "New Users Increase Percent (%)"}, {"name": "avg_sessions_incr", "description":
+  "Sessions Increase Percent (%)", "label": "Sessions Increase Percent (%)"}, {"name":
+  "avg_bounce_rate", "description": "Average Bounce Rate (%)", "label": "Average Bounce
+  Rate (%)"}, {"name": "avg_bounce_rate_incr", "description": "Bounce Rate Increase
+  Percent (%)", "label": "Bounce Rate Increase Percent (%)"}, {"name": "avg_session_duration",
+  "description": "Average Session Duration", "label": "Average Session Duration"},
+  {"name": "avg_session_dur_incr", "description": "Session Duration Increase Percent
+  (%)", "label": "Session Duration Increase Percent (%)"}]}}'
+visualisation: '{"chartjs-chart": {"chartType": "line"}}'
+query: SELECT EXTRACT('YEAR' FROM "google_analytics_monthly_comparison_stats"."month_start")
+  "google_analytics_monthly_comparison_stats.month_start.year",EXTRACT('MONTH' FROM
+  "google_analytics_monthly_comparison_stats"."month_start") "google_analytics_monthly_comparison_stats.month_start.month",COALESCE(AVG("google_analytics_monthly_comparison_stats"."users_increase_percent"),0)
+  "google_analytics_monthly_comparison_stats.avg_users_incr",COALESCE(AVG("google_analytics_monthly_comparison_stats"."new_users_increase_percent"),0)
+  "google_analytics_monthly_comparison_stats.avg_new_users_incr",COALESCE(AVG("google_analytics_monthly_comparison_stats"."sessions_increase_percent"),0)
+  "google_analytics_monthly_comparison_stats.avg_sessions_incr",COALESCE(AVG("google_analytics_monthly_comparison_stats"."bounce_rate_increase_percent"),0)
+  "google_analytics_monthly_comparison_stats.avg_bounce_rate_incr",COALESCE(AVG("google_analytics_monthly_comparison_stats"."avg_session_duration_increase_percent"),0)
+  "google_analytics_monthly_comparison_stats.avg_session_dur_incr" FROM "google_analytics_monthly_comparison_stats"
+  "google_analytics_monthly_comparison_stats" WHERE "google_analytics_monthly_comparison_stats"."month_start">=DATE(DATE(NOW())-INTERVAL
+  '366 DAY') AND "google_analytics_monthly_comparison_stats"."month_start"<=DATE(DATE(NOW())-INTERVAL
+  '1 DAY') AND "google_analytics_monthly_comparison_stats"."month_start">=DATE(DATE(NOW())-INTERVAL
+  '366 DAY') AND "google_analytics_monthly_comparison_stats"."month_start"<=DATE(DATE(NOW())-INTERVAL
+  '1 DAY') GROUP BY "google_analytics_monthly_comparison_stats.month_start.year","google_analytics_monthly_comparison_stats.month_start.month"
+  ORDER BY "google_analytics_monthly_comparison_stats.month_start.year" ASC,"google_analytics_monthly_comparison_stats.month_start.month"
+  ASC LIMIT 50;

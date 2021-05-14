@@ -1,0 +1,33 @@
+version: datasets/v0.2
+source: null
+title: Active User Stats
+questions: null
+description: Active User Stats
+metadata: '{"name": "google_analytics_active_user_stats", "label": "Active User Stats",
+  "related_table": {"columns": [{"name": "report_date", "description": "Report Date",
+  "label": "Date"}, {"name": "report_year", "description": "Year", "label": "Year"},
+  {"name": "report_month", "description": "Month", "label": "Month"}, {"name": "report_day",
+  "description": "Day", "label": "Day"}], "aggregates": [{"name": "total_daily_active_users",
+  "description": "1 Day Active Users", "label": "1 Day Active Users"}, {"name": "total_weekly_active_users",
+  "description": "7 Day Active Users", "label": "7 Day Active Users"}, {"name": "total_14d_active_users",
+  "description": "14 Day Active Users", "label": "14 Day Active Users"}, {"name":
+  "total_28d_active_users", "description": "28 Day Active Users", "label": "28 Day
+  Active Users"}]}}'
+visualisation: '{"chartjs-chart": {"chartType": "line"}}'
+query: SELECT EXTRACT('DAY' FROM "google_analytics_active_user_stats"."report_date")
+  "google_analytics_active_user_stats.report_date.dom",EXTRACT('MONTH' FROM "google_analytics_active_user_stats"."report_date")
+  "google_analytics_active_user_stats.report_date.month",EXTRACT('YEAR' FROM "google_analytics_active_user_stats"."report_date")
+  "google_analytics_active_user_stats.report_date.year",COALESCE(SUM("google_analytics_active_user_stats"."daily_active_users"),0)
+  "google_analytics_active_user_stats.total_daily_active_users",COALESCE(SUM("google_analytics_active_user_stats"."weekly_active_users"),0)
+  "google_analytics_active_user_stats.total_weekly_active_users",COALESCE(SUM("google_analytics_active_user_stats"."two_weekly_active_users"),0)
+  "google_analytics_active_user_stats.total_14d_active_users",COALESCE(SUM("google_analytics_active_user_stats"."four_weekly_active_users"),0)
+  "google_analytics_active_user_stats.total_28d_active_users" FROM "google_analytics_active_user_stats"
+  "google_analytics_active_user_stats" WHERE "google_analytics_active_user_stats"."report_date">=DATE(NOW())-INTERVAL
+  '14 DAY' AND "google_analytics_active_user_stats"."report_date"<=DATE(NOW())-INTERVAL
+  '1 DAY'+INTERVAL '23 HOUR'+INTERVAL '59 MINUTE'+INTERVAL '59 SECOND'+INTERVAL '999999
+  MICROSECOND' AND "google_analytics_active_user_stats"."report_date">=DATE(NOW())-INTERVAL
+  '14 DAY' AND "google_analytics_active_user_stats"."report_date"<=DATE(NOW())-INTERVAL
+  '1 DAY'+INTERVAL '23 HOUR'+INTERVAL '59 MINUTE'+INTERVAL '59 SECOND'+INTERVAL '999999
+  MICROSECOND' GROUP BY "google_analytics_active_user_stats.report_date.dom","google_analytics_active_user_stats.report_date.month","google_analytics_active_user_stats.report_date.year"
+  ORDER BY "google_analytics_active_user_stats.report_date.year" ASC,"google_analytics_active_user_stats.report_date.month"
+  ASC,"google_analytics_active_user_stats.report_date.dom" ASC LIMIT 50;
