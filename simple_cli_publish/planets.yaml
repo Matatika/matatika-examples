@@ -1,35 +1,33 @@
-version: 0.1
-datasets:
-  planet-orbits:
-    title: Planet Orbits in Our Solar System
-    questions: How many Earth-years does it take for Jupiter to orbit the sun?
-    description: |-
-      #Planet Orbits
-      Sun orbit data for all planets within our solar system.
-      *Yes, Pluto is included!*
-    metadata: |-
-      {
-        "name": "planet",
-        "label": "Bar chart global link to dataset", 
-        "related_table": {
-          "columns": [
-            {"name": "name", "label": "Planet Name", "description": "Planet Name"}
-          ], 
-          "aggregates": [
-            {"name": "orbitduration", "label": "Orbit Duration (Earth Years)", "description": "Orbit Duration (Earth Years)"}
-          ]
-        }
-      }
-    rawData: |-
-      [
-        {"planet.name": "Mercury", "planet.orbitdistance": 0.3336, "planet.orbitduration": 0.25},
-        {"planet.name": "Venus", "planet.orbitdistance": 0.63, "planet.orbitduration": 0.5833},
-        {"planet.name": "Earth", "planet.orbitdistance": 0.8708, "planet.orbitduration": 1},
-        {"planet.name": "Mars", "planet.orbitdistance": 1.3242, "planet.orbitduration": 1.9167},
-        {"planet.name": "Jupiter", "planet.orbitdistance": 4.5287, "planet.orbitduration": 11.8333},
-        {"planet.name": "Saturn", "planet.orbitdistance": 8.2997, "planet.orbitduration": 29.5},
-        {"planet.name": "Uranus", "planet.orbitdistance": 16.703, "planet.orbitduration": 84.0833},
-        {"planet.name": "Neptune", "planet.orbitdistance": 26.1883, "planet.orbitduration": 164.9167},
-        {"planet.name": "Pluto", "planet.orbitdistance": 33.8475, "planet.orbitduration": 248.0833}
+version: datasets/v0.2
+title: Planet Orbits in Our Solar System
+questions: How many Earth-years does it take for Jupiter to orbit the sun?
+description: |-
+  #Planet Orbits
+  Sun orbit data for all planets within our solar system.
+  *Yes, Pluto is included!*
+metadata: |-
+  {
+    "name": "planet",
+    "label": "Bar chart global link to dataset", 
+    "related_table": {
+      "columns": [
+        {"name": "name", "label": "Planet Name", "description": "Planet Name"}
+      ], 
+      "aggregates": [
+        {"name": "orbitduration", "label": "Orbit Duration (Earth Years)", "description": "Orbit Duration (Earth Years)"}
       ]
-    visualisation: '{"chartjs-chart": {"chartType": "bar"}}'
+    }
+  }
+rawData: |-
+  [
+    {"planet.name": "Mercury", "planet.orbitdistance": 0.3336, "planet.orbitduration": 0.25},
+    {"planet.name": "Venus", "planet.orbitdistance": 0.63, "planet.orbitduration": 0.5833},
+    {"planet.name": "Earth", "planet.orbitdistance": 0.8708, "planet.orbitduration": 1},
+    {"planet.name": "Mars", "planet.orbitdistance": 1.3242, "planet.orbitduration": 1.9167},
+    {"planet.name": "Jupiter", "planet.orbitdistance": 4.5287, "planet.orbitduration": 11.8333},
+    {"planet.name": "Saturn", "planet.orbitdistance": 8.2997, "planet.orbitduration": 29.5},
+    {"planet.name": "Uranus", "planet.orbitdistance": 16.703, "planet.orbitduration": 84.0833},
+    {"planet.name": "Neptune", "planet.orbitdistance": 26.1883, "planet.orbitduration": 164.9167},
+    {"planet.name": "Pluto", "planet.orbitdistance": 33.8475, "planet.orbitduration": 248.0833}
+  ]
+visualisation: '{"chartjs-chart": {"chartType": "bar"}}'
