@@ -7,8 +7,29 @@ datasets:
       #Planet Orbits
       Sun orbit data for all planets within our solar system.
       *Yes, Pluto is included!*
-    rawData: '[["Planet", "Orbit Distance (Light-hours)", "Orbit Duration (Earth-years)"],
-      ["Mercury", 0.3336, 0.25], ["Venus", 0.63, 0.5833], ["Earth", 0.8708, 1], ["Mars",
-      1.3242, 1.9167], ["Jupiter", 4.5287, 11.8333], ["Saturn", 8.2997, 29.5], ["Uranus",
-      16.703, 84.0833], ["Neptune", 26.1883, 164.9167], ["Pluto", 33.8475, 248.0833]]'
-    visualisation: '{"google-chart": {"chartType": "ColumnChart"} }'
+    metadata: |-
+      {
+        "name": "planet",
+        "label": "Bar chart global link to dataset", 
+        "related_table": {
+          "columns": [
+            {"name": "name", "label": "Planet Name", "description": "Planet Name"}
+          ], 
+          "aggregates": [
+            {"name": "orbitduration", "label": "Orbit Duration (Earth Years)", "description": "Orbit Duration (Earth Years)"}
+          ]
+        }
+      }
+    rawData: |-
+      [
+        {"planet.name": "Mercury", "planet.orbitdistance": 0.3336, "planet.orbitduration": 0.25},
+        {"planet.name": "Venus", "planet.orbitdistance": 0.63, "planet.orbitduration": 0.5833},
+        {"planet.name": "Earth", "planet.orbitdistance": 0.8708, "planet.orbitduration": 1},
+        {"planet.name": "Mars", "planet.orbitdistance": 1.3242, "planet.orbitduration": 1.9167},
+        {"planet.name": "Jupiter", "planet.orbitdistance": 4.5287, "planet.orbitduration": 11.8333},
+        {"planet.name": "Saturn", "planet.orbitdistance": 8.2997, "planet.orbitduration": 29.5},
+        {"planet.name": "Uranus", "planet.orbitdistance": 16.703, "planet.orbitduration": 84.0833},
+        {"planet.name": "Neptune", "planet.orbitdistance": 26.1883, "planet.orbitduration": 164.9167},
+        {"planet.name": "Pluto", "planet.orbitdistance": 33.8475, "planet.orbitduration": 248.0833}
+      ]
+    visualisation: '{"chartjs-chart": {"chartType": "bar"}}'
