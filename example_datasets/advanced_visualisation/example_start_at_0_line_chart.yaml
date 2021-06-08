@@ -1,0 +1,42 @@
+version: datasets/v0.2
+title: Example Start At 0 Line Chart
+questions: Which shop had the most sales?
+description: |-
+  #Example
+
+  Stats for shops, visitor amount, and sales.
+metadata: |-
+  {
+    "name": "customer", 
+    "related_table": {
+      "columns": [
+        {"name": "name", "label": "Shop Name", "description": "Shop Name"}
+      ], 
+      "aggregates": [
+        {"name": "visitors", "label": "Visitors", "description": "Number of Visitors"},
+        {"name": "sales", "label": "Sales", "description": "Number of Sales"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"customer.name": "Shop One", "customer.visitors": 1150, "customer.sales": 1040},
+    {"customer.name": "Shop Two", "customer.visitors": 980, "customer.sales": 670},
+    {"customer.name": "Shop Three", "customer.visitors": 1020, "customer.sales": 990},
+    {"customer.name": "Shop Four", "customer.visitors": 1410, "customer.sales": 1020},
+    {"customer.name": "Shop Five", "customer.visitors": 890, "customer.sales": 800}
+  ]
+visualisation: |-
+  {"chartjs-chart": 
+    {"chartType": "line", 
+      "options": {
+        "scales": {
+          "yAxes": [{
+            "ticks": {
+              "beginAtZero": true
+            }
+          }]
+        }
+      }
+    }
+  }

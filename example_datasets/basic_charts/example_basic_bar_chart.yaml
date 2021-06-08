@@ -1,0 +1,27 @@
+version: datasets/v0.2
+title: Example Basic Bar Chart
+questions: How many Earth-years does it take for Jupiter to orbit the sun?
+description: |-
+  #Example
+
+  Sun orbit data for some planets within our solar system.
+metadata: |-
+  {
+    "name": "planet", 
+    "related_table": {
+      "columns": [
+        {"name": "name", "label": "Planet Name", "description": "Planet Name"}
+      ], 
+      "aggregates": [
+        {"name": "orbitduration", "label": "Orbit Duration (Earth Years)", "description": "Orbit Duration (Earth Years)"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"planet.name": "Earth", "planet.orbitduration": 1},
+    {"planet.name": "Mars", "planet.orbitduration": 1.9167},
+    {"planet.name": "Jupiter", "planet.orbitduration": 11.8333},
+    {"planet.name": "Saturn", "planet.orbitduration": 29.5}
+  ]
+visualisation: '{"chartjs-chart": {"chartType": "bar"}}'
