@@ -1,0 +1,30 @@
+version: datasets/v0.2
+source: null
+title: Website Overview
+questions: null
+description: Website Overview Stats
+metadata: '{"name": "google_analytics_website_overview", "label": "Website Overview",
+  "related_table": {"columns": [{"name": "report_date", "description": "Report Date",
+  "label": "Date"}, {"name": "report_year", "description": "Year", "label": "Year"},
+  {"name": "report_month", "description": "Month", "label": "Month"}, {"name": "report_day",
+  "description": "Day", "label": "Day"}], "aggregates": [{"name": "total_users", "description":
+  "Total Users", "label": "Total Users"}, {"name": "total_new_users", "description":
+  "Total New Users", "label": "Total New Users"}, {"name": "total_sessions", "description":
+  "Total Sessions", "label": "Total Sessions"}]}}'
+visualisation: '{"chartjs-chart": {"chartType": "line"}}'
+query: SELECT EXTRACT('DAY' FROM "google_analytics_website_overview"."report_date")
+  "google_analytics_website_overview.report_date.dom",EXTRACT('MONTH' FROM "google_analytics_website_overview"."report_date")
+  "google_analytics_website_overview.report_date.month",EXTRACT('YEAR' FROM "google_analytics_website_overview"."report_date")
+  "google_analytics_website_overview.report_date.year",COALESCE(SUM("google_analytics_website_overview"."users"),0)
+  "google_analytics_website_overview.total_users",COALESCE(SUM("google_analytics_website_overview"."new_users"),0)
+  "google_analytics_website_overview.total_new_users",COALESCE(SUM("google_analytics_website_overview"."sessions"),0)
+  "google_analytics_website_overview.total_sessions" FROM "google_analytics_website_overview"
+  "google_analytics_website_overview" WHERE "google_analytics_website_overview"."report_date">=DATE(NOW())-INTERVAL
+  '14 DAY' AND "google_analytics_website_overview"."report_date"<=DATE(NOW())-INTERVAL
+  '1 DAY'+INTERVAL '23 HOUR'+INTERVAL '59 MINUTE'+INTERVAL '59 SECOND'+INTERVAL '999999
+  MICROSECOND' AND "google_analytics_website_overview"."report_date">=DATE(NOW())-INTERVAL
+  '14 DAY' AND "google_analytics_website_overview"."report_date"<=DATE(NOW())-INTERVAL
+  '1 DAY'+INTERVAL '23 HOUR'+INTERVAL '59 MINUTE'+INTERVAL '59 SECOND'+INTERVAL '999999
+  MICROSECOND' GROUP BY "google_analytics_website_overview.report_date.dom","google_analytics_website_overview.report_date.month","google_analytics_website_overview.report_date.year"
+  ORDER BY "google_analytics_website_overview.report_date.year" ASC,"google_analytics_website_overview.report_date.month"
+  ASC,"google_analytics_website_overview.report_date.dom" ASC LIMIT 50;

@@ -1,0 +1,42 @@
+version: datasets/v0.2
+title: Example Max Scale Line Chart
+questions: Are shops meeting their sales target percentage.
+description: |-
+  #Example
+
+  Stats for shops, their sales target percentage and their actual sales percentage.
+metadata: |-
+  {
+    "name": "customer", 
+    "related_table": {
+      "columns": [
+        {"name": "name", "label": "Shop Name", "description": "Shop Name"}
+      ], 
+      "aggregates": [
+        {"name": "sales_target_percent", "label": "Sales Target Percentage", "description": "Sales Target Percentage"},
+        {"name": "sales_percent", "label": "Sales Percentage", "description": "Sales Percentage"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"customer.name": "Shop One", "customer.sales_target_percent": 80, "customer.sales_percent": 67},
+    {"customer.name": "Shop Two", "customer.sales_target_percent": 80, "customer.sales_percent": 81},
+    {"customer.name": "Shop Three", "customer.sales_target_percent": 80, "customer.sales_percent": 85},
+    {"customer.name": "Shop Four", "customer.sales_target_percent": 80, "customer.sales_percent": 64},
+    {"customer.name": "Shop Five", "customer.sales_target_percent": 80, "customer.sales_percent": 74}
+  ]
+visualisation: |-
+  {"chartjs-chart": 
+    {"chartType": "line", 
+      "options": {
+        "scales": {
+          "yAxes": [{
+            "ticks": {
+              "max": 100
+            }
+          }]
+        }
+      }
+    }
+  }

@@ -1,0 +1,35 @@
+version: datasets/v0.2
+title: Example Basic Pie Chart
+questions: For the last 7 days, how many visitors did Shop One have?
+description: |-
+  #Example
+  
+  Shop One visitors for the last 7 days.
+metadata: |-
+  {
+    "name": "customer", 
+    "related_table": {
+      "columns": [
+      ], 
+      "aggregates": [
+        {"name": "visitors_monday", "label": "Monday Visitors", "description": "Monday Visitors"},
+        {"name": "visitors_tuesday", "label": "Tuesday Visitors", "description": "Tuesday Visitors"},
+        {"name": "visitors_wednesday", "label": "Wednesday Visitors", "description": "Wednesday Visitors"},
+        {"name": "visitors_thursday", "label": "Thursday Visitors", "description": "Thursday Visitors"},
+        {"name": "visitors_friday", "label": "Friday Visitors", "description": "Friday Visitors"},
+        {"name": "visitors_saturday", "label": "Saturday Visitors", "description": "Saturday Visitors"},
+        {"name": "visitors_sunday", "label": "Sunday Visitors", "description": "Sunday Visitors"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"customer.visitors_monday": 1090,
+    "customer.visitors_tuesday": 980,
+    "customer.visitors_wednesday": 1020,
+    "customer.visitors_thursday": 1030,
+    "customer.visitors_friday": 1150,
+    "customer.visitors_saturday": 1430,
+    "customer.visitors_sunday": 1290}
+  ]
+visualisation: '{"chartjs-chart": {"chartType": "doughnut"}}'

@@ -1,0 +1,25 @@
+version: datasets/v0.2
+source: null
+title: Monthly Comparison Stats
+questions: null
+description: Monthly Comparison Stats
+metadata: '{"name": "google_analytics_monthly_comparison_stats", "label": "Monthly
+  Comparison Stats", "related_table": {"columns": [{"name": "year", "description":
+  "Year", "label": "Year"}, {"name": "month", "description": "Month", "label": "Month"},
+  {"name": "month_start", "label": "Month Start Date"}], "aggregates": [{"name": "total_users",
+  "description": "Total Users", "label": "Total Users"}, {"name": "total_new_users",
+  "description": "Total New Users", "label": "Total New Users"}, {"name": "total_sessions",
+  "description": "Total Sessions", "label": "Total Sessions"}]}}'
+visualisation: '{"chartjs-chart": {"chartType": "line"}}'
+query: SELECT "google_analytics_monthly_comparison_stats"."year" "google_analytics_monthly_comparison_stats.year","google_analytics_monthly_comparison_stats"."month"
+  "google_analytics_monthly_comparison_stats.month",COALESCE(SUM("google_analytics_monthly_comparison_stats"."users"),0)
+  "google_analytics_monthly_comparison_stats.total_users",COALESCE(SUM("google_analytics_monthly_comparison_stats"."new_users"),0)
+  "google_analytics_monthly_comparison_stats.total_new_users",COALESCE(SUM("google_analytics_monthly_comparison_stats"."sessions"),0)
+  "google_analytics_monthly_comparison_stats.total_sessions" FROM "google_analytics_monthly_comparison_stats"
+  "google_analytics_monthly_comparison_stats" WHERE "google_analytics_monthly_comparison_stats"."month_start">=DATE(DATE(NOW())-INTERVAL
+  '366 DAY') AND "google_analytics_monthly_comparison_stats"."month_start"<=DATE(DATE(NOW())-INTERVAL
+  '1 DAY') AND "google_analytics_monthly_comparison_stats"."month_start">=DATE(DATE(NOW())-INTERVAL
+  '366 DAY') AND "google_analytics_monthly_comparison_stats"."month_start"<=DATE(DATE(NOW())-INTERVAL
+  '1 DAY') GROUP BY "google_analytics_monthly_comparison_stats.year","google_analytics_monthly_comparison_stats.month"
+  ORDER BY "google_analytics_monthly_comparison_stats.year" ASC,"google_analytics_monthly_comparison_stats.month"
+  ASC LIMIT 50;

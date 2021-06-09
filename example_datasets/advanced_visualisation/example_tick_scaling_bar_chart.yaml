@@ -1,0 +1,40 @@
+version: datasets/v0.2
+title: Example Tick Scaling Bar Chart
+questions: How many deliveries does each shop have?
+description: |-
+  #Example
+
+  This dataset show the shop and how many daily deliveries they recieve.
+metadata: |-
+  {
+    "name": "shop", 
+    "related_table": {
+      "columns": [
+        {"name": "name", "label": "Shop Name", "description": "Shop Name"}
+      ], 
+      "aggregates": [
+        {"name": "daily_deliveries", "label": "Daily Deliveries", "description": "Daily Deliveries"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"shop.name": "Shop One", "shop.daily_deliveries": 1},
+    {"shop.name": "Shop Two", "shop.daily_deliveries": 2},
+    {"shop.name": "Shop Three", "shop.daily_deliveries": 1}
+  ]
+visualisation: |-
+  {"chartjs-chart": 
+    {"chartType": "bar",
+      "options": {
+        "scales": {
+          "yAxes": [{
+            "ticks": {
+              "beginAtZero": true,
+              "stepSize": 1
+            }
+          }]
+        }
+      }
+    }
+  }

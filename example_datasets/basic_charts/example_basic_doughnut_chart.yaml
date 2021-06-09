@@ -1,0 +1,24 @@
+version: datasets/v0.2
+title: Example Basic Doughnut Chart
+questions: What shop had the most visitors?
+description: |-
+  #Example
+  
+  Stats for shops and visitor amount.
+metadata: |-
+  {
+    "name": "customer", 
+    "related_table": {
+      "columns": [
+      ], 
+      "aggregates": [
+        {"name": "visitors", "label": "Visitors", "description": "Number of Visitors"},
+        {"name": "sales", "label": "Sales", "description": "Number of Sales"}
+      ]
+    }
+  }
+rawData: |-
+  [
+    {"customer.visitors": 1150, "customer.sales": 1040}
+  ]
+visualisation: '{"chartjs-chart": {"chartType": "doughnut"}}'
