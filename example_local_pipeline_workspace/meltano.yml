@@ -1,0 +1,14 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: 2b1b1ff3-41bf-442e-8749-c7140b564b17
+plugins:
+  extractors:
+  - name: tap-spreadsheets-anywhere
+    pip_url: git+https://github.com/ets/tap-spreadsheets-anywhere.git
+  loaders:
+  - name: target-postgres
+    variant: meltano
+    pip_url: git+https://github.com/meltano/target-postgres.git
+  files:
+  - name: dbt
+    pip_url: git+https://gitlab.com/meltano/files-dbt.git@config-version-2
