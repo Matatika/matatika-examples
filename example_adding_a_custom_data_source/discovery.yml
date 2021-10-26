@@ -1,0 +1,11 @@
+extractors:
+  - name: tap-custom-spreadsheets-anywhere
+    namespace: tap_custom-spreadsheets_anywhere
+    pip_url: git+https://github.com/ets/tap-spreadsheets-anywhere.git
+    capabilities:
+      - catalog
+      - discover
+      - state
+    settings:
+      - name: tables
+        kind: array
