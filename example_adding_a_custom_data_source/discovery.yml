@@ -1,0 +1,18 @@
+extractors:
+  - name: tap-example-custom-data-source
+    namespace: tap_example_custom_data_source
+    pip_url: git+https://github.com/ets/tap-spreadsheets-anywhere.git
+    executable: tap-spreadsheets-anywhere
+    capabilities:
+      - catalog
+      - discover
+      - state
+    settings:
+      - name: tables
+        kind: array
+files:
+  - name: analyze-example-custom-data-source
+    namespace: tap_example_custom_data_source
+    update:
+      analyze/datasets/tap-example-custom-data-source: true
+    pip_url: git+https://github.com/Matatika/analyze-example-custom-data-source.git
