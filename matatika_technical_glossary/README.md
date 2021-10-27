@@ -1,6 +1,6 @@
 # Matatika Technical Glossary
 
-Glossary of Matatika technical terms.
+Glossary of [Matatika](https://www.matatika.com/) technical terms.
 
 You can see a high level overview of these concepts in our [documentation](https://www.matatika.com/docs/glossary).
 
@@ -8,7 +8,7 @@ You can see a high level overview of these concepts in our [documentation](https
 
 ## Analyze File Bundle
 
-Analyze file bundles are our matatika [dataset](https://www.matatika.com/docs/glossary#dataset) file bundles. These file bundles are included and all their [datasets](https://www.matatika.com/docs/glossary#dataset) published in your [workspace](https://www.matatika.com/docs/glossary#workspace) if you use one of our supported [data sources](https://www.matatika.com/docs/glossary#data-source).
+Analyze file bundles are our Matatika [dataset](https://www.matatika.com/docs/glossary#dataset) file bundles. These file bundles are included and all their [datasets](https://www.matatika.com/docs/glossary#dataset) published in your [workspace](https://www.matatika.com/docs/glossary#workspace) if you use one of our supported [data sources](https://www.matatika.com/docs/glossary#data-source).
 
 Examples:
 - [Analyze-Spotify](https://github.com/Matatika/analyze-spotify)
@@ -18,9 +18,9 @@ Examples:
 
 ## Config Job
 
-A config job runs upon creation of a [data import](https://www.matatika.com/docs/glossary#data-import), that sets up the [workspace repository](#workspace-repository) with files and settings required to run your [data imports](https://www.matatika.com/docs/glossary#data-import).
+A config job runs upon creation of a [data import](https://www.matatika.com/docs/glossary#data-import). It sets up the [workspace repository](#workspace-repository) with files and settings required to run your [data imports](https://www.matatika.com/docs/glossary#data-import).
 
-A config job will run on every creation of a [data import](https://www.matatika.com/docs/glossary#data-import) and commit the required changes to allow each one to run.
+A config job will run on every creation of a [data import](https://www.matatika.com/docs/glossary#data-import) and will commit the required changes to allow each one to run.
 
 ---
 
@@ -49,8 +49,8 @@ A data plugin is a definition of a [Meltano](#meltano) plugin, (of any type; [ex
 dbt (Data build tool) allows you to write custom transforms for you data. Some of our [extractors](#extractor) come with custom [transforms](#transform) included, which we use to clean and/or prepare your data for analysis.
 
 Examples of our dbt projects: 
-[dbt-tap-spotify])(https://github.com/Matatika/dbt-tap-spotify)
-[dbt-tap-solarvista](https://github.com/Matatika/dbt-tap-solarvista)
+- [dbt-tap-spotify](https://github.com/Matatika/dbt-tap-spotify)
+- [dbt-tap-solarvista](https://github.com/Matatika/dbt-tap-solarvista)
 
 [dbt documentation](https://docs.getdbt.com/)
 
@@ -58,19 +58,19 @@ Examples of our dbt projects:
 
 ## Extractor
 
-A extractor is a [Meltano](#meltano) instance of a [singer](#singer) [tap](#tap), that we use for our [data sources](https://www.matatika.com/docs/glossary#data-source)
+A extractor is a [Meltano](#meltano) instance of a [singer](#singer) [tap](#tap), that we use for our [data sources](https://www.matatika.com/docs/glossary#data-source).
 
 ---
 
 ## Loader
 
-A loader is a [Meltano](#meltano) instance of a [singer](#singer) [target](#target), that we use for our [datastores](https://www.matatika.com/docs/glossary)
+A loader is a [Meltano](#meltano) instance of a [singer](#singer) [target](#target), that we use for our [datastores](https://www.matatika.com/docs/glossary).
 
 ---
 
 ## Meltano
 
-Meltano is a data automation tool used for managing [singer](#singer) and [dbt](#dbt) plugins, and some other minor plugin types. We use Meltano to run our [data imports](https://www.matatika.com/docs/glossary#data-import), and manage our [data sources](https://www.matatika.com/docs/glossary#data-source) and [data stores](https://www.matatika.com/docs/glossary#data-store).
+Meltano is a data automation tool used for managing plugins, mostly [singer](#singer) and [dbt](#dbt) plugins but also a few others. We use Meltano to run our [data imports](https://www.matatika.com/docs/glossary#data-import), and manage our [data sources](https://www.matatika.com/docs/glossary#data-source) and [data stores](https://www.matatika.com/docs/glossary#data-store).
 
 [Meltano Documentation](https://meltano.com/docs/)
 
@@ -102,7 +102,7 @@ Instances of [loaders](#loaders) used in the Matatika platform are called [data 
 
 ## Transforms
 
-Transforms are a [dbt](#dbt) plugin used by [Meltano](#meltano). The transforms are used during the [data import](https://www.matatika.com/docs/glossary#data-import) run to clean and or prepare data for analysis.
+Transforms are [dbt](#dbt) plugins used by [Meltano](#meltano). The transforms are used during the [data import](https://www.matatika.com/docs/glossary#data-import) run to clean and/or prepare data for analysis.
 
 Not all of our supported [data sources](https://www.matatika.com/docs/glossary#data-source) use transforms, but if they do by default and they also have an [analyze file bundle](#analyze-file-bundle), then they will be required to run to make use of the [datasets](https://www.matatika.com/docs/glossary#dataset) included with your [data source](https://www.matatika.com/docs/glossary#data-source).
 
@@ -110,7 +110,7 @@ Not all of our supported [data sources](https://www.matatika.com/docs/glossary#d
 
 ## Workspace Repository
 
-Your workspace repository is a github hosted git repository that contains all files relating to your workspace. They workspace repository will be setup and adjusted during [config jobs](#config-job), which run each time a [data import](https://www.matatika.com/docs/glossary#data-import) is created.
+Your workspace repository is a github hosted git repository that contains all files relating to your [workspace](https://www.matatika.com/docs/glossary#workspace). They workspace repository will be setup and adjusted during [config jobs](#config-job), which run each time a [data import](https://www.matatika.com/docs/glossary#data-import) is created.
 
 The workspace repository is a normal repository in that you have complete source control, though it is reccomended to leave the file structure intact, as this is required for [Meltano](#meltano) to run your [data imports](https://www.matatika.com/docs/glossary#data-import).
 
