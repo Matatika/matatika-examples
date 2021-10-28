@@ -26,7 +26,11 @@ A config job will run on every creation of a [data import](https://www.matatika.
 
 ## Custom Data Plugin
 
-A custom data plugin is a user defined [Meltano](#meltano) [extractor](#extractor) within the Matatika platform. Once you have supplied the custom data plugin with its required settings and added it to a [data import](https://www.matatika.com/docs/glossary#data-import), it is then refered to as a [data source](https://www.matatika.com/docs/glossary#data-source) or [custom data source](#custom-data-source).
+A custom data plugin is a user defined [Meltano](#meltano) plugin within the Matatika platform.
+
+Within the Matatika platform user defined Meltano [extractors](#extractor) once configured are [custom data sources](#custom-data-source), and similarly [targets](#target) are [custom data stores](#custom-data-store).
+
+Meltano [transforms](#transform) and [analyze file bundles](#analyze-file-bundle) are generally just referred to as custom data plugins or just data plugins.
 
 ---
 
@@ -35,6 +39,14 @@ A custom data plugin is a user defined [Meltano](#meltano) [extractor](#extracto
 A custom data source is a configured [custom data plugin](#custom-data-plugin) that is used in a [data import](https://www.matatika.com/docs/glossary#data-import).
 
 To add and use your own custom data source, you can follow our [Adding a Custom Data Source](https://www.matatika.com/docs/getting-started/adding-a-custom-data-source) tutorial.
+
+---
+
+## Custom Data Store
+
+A custom data store is a configured [custom data plugin](#custom-data-plugin) that is used in a [data import](https://www.matatika.com/docs/glossary#data-import).
+
+The [workspace](https://www.matatika.com/docs/glossary#workspace) default [data store]() is the PostgreSQL database that gets created alongside your workspace. Again by default we use this PostgreSQL database though a default data plugin called `target-postgres`, and we also set all required environment variables in your [data import]() containers to use this PostgreSQL database as your data store.
 
 ---
 
@@ -86,7 +98,7 @@ Singer is a specification to describe data extraction and data loading scripts, 
 
 ## Tap
 
-A tap is a [Singer](#singer) specced plugin to get data from a source. Instances of taps used in [Meltano](#meltano) are called [extractors](#extractor). 
+A tap is a [Singer](#singer) specification plugin to get data from a source. Instances of taps used in [Meltano](#meltano) are called [extractors](#extractor). 
 
 Instances of [extractors](#extractor) used in the Matatika platform are called [data plugins](https://www.matatika.com/docs/glossary#data-plugin), and when configured and used in a [data import](https://www.matatika.com/docs/glossary#data-import) they are called a [data source](https://www.matatika.com/docs/glossary#data-source).
 
@@ -94,7 +106,7 @@ Instances of [extractors](#extractor) used in the Matatika platform are called [
 
 ## Target
 
-A target is a [Singer](#singer) specced plugin to load data into a destination. Instances of targets used in [Meltano](#meltano) are called [loaders](#loaders).
+A target is a [Singer](#singer) specification plugin to load data into a destination. Instances of targets used in [Meltano](#meltano) are called [loaders](#loaders).
 
 Instances of [loaders](#loaders) used in the Matatika platform are called [data plugins](https://www.matatika.com/docs/glossary#data-plugin), and when configured and used in a [data import](https://www.matatika.com/docs/glossary#data-import) they are called a [data store](https://www.matatika.com/docs/glossary#data-store).
 
@@ -112,6 +124,6 @@ Not all of our supported [data sources](https://www.matatika.com/docs/glossary#d
 
 Your workspace repository is a github hosted git repository that contains all files relating to your [workspace](https://www.matatika.com/docs/glossary#workspace). They workspace repository will be setup and adjusted during [config jobs](#config-job), which run each time a [data import](https://www.matatika.com/docs/glossary#data-import) is created.
 
-The workspace repository is a normal repository in that you have complete source control, though it is reccomended to leave the file structure intact, as this is required for [Meltano](#meltano) to run your [data imports](https://www.matatika.com/docs/glossary#data-import).
+The workspace repository is a normal repository in that you have complete source control, though it is recommended to leave the file structure intact, as this is required for [Meltano](#meltano) to run your [data imports](https://www.matatika.com/docs/glossary#data-import).
 
 ---
