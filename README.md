@@ -41,7 +41,7 @@ A [readme file](./example_custom_data_source_discovery_format/README.md) contain
 
 Examples datasets files, for reference when creating your own datasets.
 
-Our dataset documentation: [Matatika Dataset Documentation](https://www.matatika.com/docs/data-visualisation/dataset-yaml)
+Our dataset documentation: [Matatika Dataset Documentation](https://www.matatika.com/docs/data/data-visualisation/dataset-yaml)
 
 ---
 
