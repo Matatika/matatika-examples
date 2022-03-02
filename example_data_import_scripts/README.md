@@ -2,7 +2,7 @@
 
 Under `Section 2 - Clean, transform and organise` in your [data import](https://www.matatika.com/docs/glossary#data-import) edit screen there are two options. `Default Actions` and `Advanced`.
 
-`Default Actions` runs your data import with this [default-actions.sh]() script.
+`Default Actions` runs your data import with this [default-actions.sh](default-actions.sh) script.
 `Advanced` lets you supply your own pipeline script. If you choose this you are responsible for everything; installing, action ordering and so on.
 
 There is a thrid way to provide a custom data import script, which is to put an `elt.sh` file under `orchestrate/tap-name/`, where `tap-name` is your tap's name, in your workspace's repository. By default there are some data sources that have to use these custom `elt.sh` scripts, and they get added to your workspace when the `analyze-bundle` for the datasource is installed.
