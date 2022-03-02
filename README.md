@@ -33,7 +33,7 @@ A [readme file](./example_custom_data_source_discovery_format/README.md) contain
 
 ## Example Data Import Scripts
 
-A [readme file](./example_custom_data_source_discovery_format/README.md) containing snippets and links to examples of custom [data import](https://www.matatika.com/docs/glossary#data-import) scripts.
+A [readme file](./example_data_import_scripts/README.md) containing snippets and links to examples of custom [data import](https://www.matatika.com/docs/glossary#data-import) scripts.
 
 ---
 
