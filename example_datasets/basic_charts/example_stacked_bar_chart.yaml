@@ -3,7 +3,7 @@ title: Example Stacked Bar Chart
 questions: How many Earth-years does it take for Jupiter to orbit the sun?
 description: |-
   #Example
-  
+
   Sun orbit data for some planets within our solar system.
 metadata: |-
   {
@@ -31,9 +31,9 @@ visualisation: |-
       "chartType": "bar", 
       "options": {
         "scales": {
-          "xAxes": [{
-              "stacked": true
-          }]
+          "x": {
+            "stacked": true
+          }
         }
       }
     }

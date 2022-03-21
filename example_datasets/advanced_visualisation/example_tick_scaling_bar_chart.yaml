@@ -28,12 +28,12 @@ visualisation: |-
     {"chartType": "bar",
       "options": {
         "scales": {
-          "yAxes": [{
+          "y": {
+            "beginAtZero": true,
             "ticks": {
-              "beginAtZero": true,
               "stepSize": 1
             }
-          }]
+          }
         }
       }
     }
