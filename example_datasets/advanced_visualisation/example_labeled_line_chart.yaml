@@ -1,5 +1,5 @@
 version: datasets/v0.2
-title: Example Labeled Scatter Chart
+title: Example Labeled Line Chart
 questions: How do the shops compare against visitors and sales?
 description: |-
   #Example
@@ -27,21 +27,21 @@ rawData: |-
   ]
 visualisation: |-
   {"chartjs-chart": 
-    {"chartType": "scatter", 
+    {"chartType": "line", 
       "options": {
         "scales": {
-          "yAxes": [{
-            "scaleLabel": {
+          "y": {
+            "title": {
               "display": true,
-              "labelString": "Number of Visitors"
+              "text": "Number of Visitors"
             }
-          }],
-          "xAxes": [{
-            "scaleLabel": {
+          },
+          "x": {
+            "title": {
               "display": true,
-              "labelString": "Number of Sales"
+              "text": "Number of Sales"
             }
-          }]
+          }
         }    
       }
     }
