@@ -1,17 +1,18 @@
 # Custom Data Import Scripts
 
-Under `Section 2 - Clean, transform and organise` in your [data import](https://www.matatika.com/docs/glossary#data-import) edit screen there are two options. `Default Actions` and `Advanced`.
+Under `Section 2 - Clean, transform and organise` in your [data import](https://www.matatika.com/docs/glossary#data-import) edit screen there are three options. `Default`, `Custom` and `Script`.
 
-`Default Actions` runs your data import with this [default-actions.sh](default-actions.sh) script.
-`Advanced` lets you supply your own pipeline script. If you choose this you are responsible for everything; installing, action ordering and so on.
+`Default` runs your data import with this [default.sh](default.sh) script.
+`Custom` runs your data import with your chosen actions from the drop down.
+`Script` lets you supply your own pipeline script. If you choose this you are responsible for everything; installing, action ordering and so on. (See [default.sh](default.sh))
 
-There is a thrid way to provide a custom data import script, which is to put an `elt.sh` file under `orchestrate/tap-name/`, where `tap-name` is your tap's name, in your workspace's repository. By default there are some data sources that have to use these custom `elt.sh` scripts, and they get added to your workspace when the `analyze-bundle` for the datasource is installed.
+There is a fourth way to provide a custom data import script, which is to put an `elt.sh` file under `orchestrate/tap-name/`, where `tap-name` is your tap's name, in your workspace's repository. By default there are some data sources that have to use these custom `elt.sh` scripts, and they get added to your workspace when the `analyze-bundle` for the datasource is installed.
 
 If you provide an `elt.sh` file under `orchestrate/tap-name/`, this will become the default actions for any data import that uses that `tap-name` datasource.
 
 Examples of this `elt.sh` script: [analyze-solarvista](https://github.com/Matatika/analyze-solarvista/blob/master/bundle/orchestrate/tap-solarvista/elt.sh), [analyze-googleads](https://github.com/Matatika/analyze-googleads/blob/master/bundle/orchestrate/tap-googleads/elt.sh)
 
-You can also just call a custom elt.sh script in the `Advanced` custom data import script if you wish.
+You can also just call a custom elt.sh script in the `Script` custom data import script if you wish.
 
 ---
 
@@ -25,24 +26,24 @@ The settings for the data source are supplied by you, and the default data store
 
 ```bash
 meltano install
-meltano elt tap-spotify target-postgres
+meltano run tap-spotify target-postgres
 ```
 
 - Install all meltano plugins
-- Run the elt
+- Meltano run
 
 ---
 
 
 ```bash
 meltano install
-meltano elt tap-spotify target-postgres
+meltano run tap-spotify target-postgres
 meltano invoke dbt run
 meltano invoke dbt test
 ```
 
 - Install all meltano plugins
-- Run the elt
+- Meltano run
 - Run the dbt transforms
 - Run the dbt tests
 
@@ -65,8 +66,14 @@ fi
 ```
 
 - Install all meltano plugins
-- Run the elt, saving the job and maintaining state
+- Run the elt, saving the job and maintaining state. (ELT is now deprecated, we recommend using meltano run).
 - Run the dbt tests, not failing on error
 - If there was an error, turn fail on error back on (`set -e`). Otherwise data import run is complete.
 - If there was an error, run the dbt transforms with full refresh
 - If there was an error, run the dbt tests again. If it fails again this time, the data import will report the error.
+
+---
+
+### Using meltano run
+
+To get state saving using meltano run you need to provide a meltano environment in your custom script. We do this in the [default.sh](default.sh) example and you can also read the documentation here: [Meltano Run Documentation](https://docs.meltano.com/reference/command-line-interface#run)
