@@ -3,6 +3,7 @@ extractors:
     namespace: tap_example_custom_data_source
     pip_url: git+https://github.com/ets/tap-spreadsheets-anywhere.git
     executable: tap-spreadsheets-anywhere
+    variant: matatika
     capabilities:
       - catalog
       - discover
@@ -13,6 +14,7 @@ extractors:
 files:
   - name: analyze-example-custom-data-source
     namespace: tap_example_custom_data_source
+    variant: matatika
     update:
       analyze/datasets/tap-example-custom-data-source: true
     pip_url: git+https://github.com/Matatika/analyze-example-custom-data-source.git
