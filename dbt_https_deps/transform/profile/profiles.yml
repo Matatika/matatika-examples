@@ -1,0 +1,17 @@
+# Minimal profile so the dbt project parses. `dbt deps` does not connect to the
+# warehouse, so defaults are sufficient; values fall back when env vars are unset.
+config:
+  send_anonymous_usage_stats: false
+  use_colors: true
+meltano:
+  target: postgres
+  outputs:
+    postgres:
+      type: postgres
+      threads: 1
+      host: "{{ env_var('PG_ADDRESS', 'localhost') }}"
+      port: "{{ env_var('PG_PORT', '5432') | int }}"
+      user: "{{ env_var('PG_USERNAME', 'meltano') }}"
+      pass: "{{ env_var('PG_PASSWORD', 'meltano') }}"
+      dbname: "{{ env_var('PG_DATABASE', 'warehouse') }}"
+      schema: "{{ env_var('DBT_TARGET_SCHEMA', 'analytics') }}"

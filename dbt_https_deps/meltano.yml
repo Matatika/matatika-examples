@@ -1,0 +1,50 @@
+version: 1
+# Example Meltano project used by the meltano-sit RunnerITCase to exercise
+# cloning a dbt package dependency over HTTPS with an embedded credential.
+#
+# The pipeline below runs `dbt deps`, which clones the git package declared in
+# transform/packages.yml. That package is PRIVATE and is cloned over
+# https://oauth2:<token>@github.com/... — the exact path that regressed under
+# MEL-403 when the platform GitHub extraHeader was injected into pipeline stages
+# and overrode the per-repo token (GitHub then returns "Repository not found").
+#
+# Required at run time (see README.md):
+#   DBT_ENV_SECRET_GIT_TOKEN - a token with read access to the private package repo
+send_anonymous_usage_stats: false
+project_id: fd5a56d0-e6d2-4ad0-9a4e-a41cc75d6462
+default_environment: staging
+
+# Pass the dbt git token through to the task environment so that the
+# {{ env_var('DBT_ENV_SECRET_GIT_TOKEN') }} reference in transform/packages.yml
+# resolves. The value must be present in the pipeline's run environment.
+env:
+  DBT_ENV_SECRET_GIT_TOKEN: ${DBT_ENV_SECRET_GIT_TOKEN}
+
+environments:
+- name: staging
+
+plugins:
+  utilities:
+  # Resolved from the platform plugin hub (registry def:
+  # plugins/utilities/dbt-postgres--dbt-labs.yml), which provides the `deps`
+  # command (`dbt deps`).
+  - name: dbt-postgres
+    variant: dbt-labs
+    config:
+      project_dir: $MELTANO_PROJECT_ROOT/transform
+      profiles_dir: $MELTANO_PROJECT_ROOT/transform/profile
+
+jobs:
+# `dbt deps` resolves and clones the dependencies in transform/packages.yml.
+# This is the minimal action that exercises the credentialed HTTPS clone without
+# requiring a populated warehouse.
+- name: dbt-deps-job
+  tasks:
+  - dbt-postgres:deps
+
+schedules:
+# The schedule name is surfaced by the platform as the runnable pipeline name and
+# is referenced by the SIT runner YAML (pipeline.name: dbt-https-deps).
+- name: dbt-https-deps
+  job: dbt-deps-job
+  interval: '@once'
