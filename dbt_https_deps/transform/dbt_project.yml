@@ -1,0 +1,14 @@
+name: sit_dbt_https_deps
+version: '1.0.0'
+config-version: 2
+
+# Matches the profile defined in transform/profile/profiles.yml. `dbt deps` does
+# not open a database connection, so the profile only needs to parse.
+profile: meltano
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+target-path: ../.meltano/transformers/dbt/target
+clean-targets:
+  - ../.meltano/transformers/dbt/target
+  - dbt_packages
