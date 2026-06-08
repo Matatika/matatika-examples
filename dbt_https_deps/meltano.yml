@@ -76,16 +76,19 @@ plugins:
         description: Debug your dbt project and warehouse connection.
 
 jobs:
-# `dbt deps` resolves and clones the dependencies in transform/packages.yml.
-# This is the minimal action that exercises the credentialed HTTPS clone without
-# requiring a populated warehouse.
-- name: dbt-deps-job
+# An UNSCHEDULED job. The platform surfaces a job that is not referenced by any
+# schedule as a runnable pipeline named after the job, with the job's tasks as
+# the pipeline actions (PipelineResource.fromJob). The pipeline name is therefore
+# `dbt-https-deps`, matching the SIT runner YAML (pipeline.name: dbt-https-deps).
+#
+# We deliberately do NOT add a `schedules:` entry. The platform validates a
+# pipeline's schedule as a 6-field Spring cron, and Meltano's `@once` macro is not
+# a valid cron — that makes deploy-time validation fail and the pipeline is
+# silently created as a non-runnable DRAFT (no "create job" link). A job with no
+# schedule leaves the pipeline schedule null, which skips cron validation.
+#
+# `dbt deps` resolves and clones the dependencies in transform/packages.yml — the
+# minimal action that exercises the credentialed HTTPS clone without a warehouse.
+- name: dbt-https-deps
   tasks:
   - dbt-postgres:deps
-
-schedules:
-# The schedule name is surfaced by the platform as the runnable pipeline name and
-# is referenced by the SIT runner YAML (pipeline.name: dbt-https-deps).
-- name: dbt-https-deps
-  job: dbt-deps-job
-  interval: '@once'

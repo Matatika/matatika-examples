@@ -8,7 +8,7 @@ injected into pipeline/dbt stages and overrode the per-repo token a dbt
 
 ## What it does
 
-The `dbt-https-deps` pipeline (a Meltano schedule) runs a single task,
+The `dbt-https-deps` pipeline (an unscheduled Meltano job) runs a single task,
 `dbt-postgres:deps`, i.e. `dbt deps`. dbt then clones the git package declared in
 [`transform/packages.yml`](transform/packages.yml):
 
