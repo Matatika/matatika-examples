@@ -45,16 +45,18 @@ plugins:
     - name: type
       env: DBT_EXT_TYPE
       value: postgres
+    # project_dir/profiles_dir reference $MELTANO_PROJECT_ROOT, which Meltano expands
+    # when it builds the plugin env (DBT_PROJECT_DIR / DBT_PROFILES_DIR). They MUST be
+    # set as setting `value` defaults (the registry pattern) and NOT via a `config:`
+    # override — a config override is passed through unexpanded, so dbt-ext receives
+    # the literal "$MELTANO_PROJECT_ROOT/transform" and fails with
+    # "No such file or directory: '$MELTANO_PROJECT_ROOT/transform'".
     - name: project_dir
       env: DBT_PROJECT_DIR
+      value: $MELTANO_PROJECT_ROOT/transform
     - name: profiles_dir
       env: DBT_PROFILES_DIR
-    config:
-      # skip_pre_invoke=true keeps `dbt deps` from opening a warehouse connection,
-      # so the run exercises only the credentialed HTTPS package clone.
-      skip_pre_invoke: true
-      project_dir: $MELTANO_PROJECT_ROOT/transform
-      profiles_dir: $MELTANO_PROJECT_ROOT/transform/profile
+      value: $MELTANO_PROJECT_ROOT/transform/profile
     commands:
       deps:
         args: deps
