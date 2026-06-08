@@ -25,14 +25,55 @@ environments:
 
 plugins:
   utilities:
-  # Resolved from the platform plugin hub (registry def:
-  # plugins/utilities/dbt-postgres--dbt-labs.yml), which provides the `deps`
-  # command (`dbt deps`).
+  # The plugin is fully SELF-DESCRIBED inline (executable + namespace + commands).
+  # This is required: DataComponentLoader only creates a workspace data component
+  # for a plugin that is self-described (or already installed). A bare
+  # `name: dbt-postgres` + `variant: dbt-labs` reference is skipped at deploy time,
+  # so the pipeline's `dbt-postgres` data component would not exist and validation
+  # fails with "Data component 'dbt-postgres' does not exist ...".
+  # Mirrors registry def plugins/utilities/dbt-postgres--dbt-labs.yml.
   - name: dbt-postgres
+    namespace: dbt_postgres
     variant: dbt-labs
+    executable: dbt_invoker
+    pip_url: dbt-core~=1.3.0 dbt-postgres~=1.3.0 git+https://github.com/meltano/dbt-ext.git@main
+    settings:
+    - name: skip_pre_invoke
+      env: DBT_EXT_SKIP_PRE_INVOKE
+      kind: boolean
+      value: true
+    - name: type
+      env: DBT_EXT_TYPE
+      value: postgres
+    - name: project_dir
+      env: DBT_PROJECT_DIR
+    - name: profiles_dir
+      env: DBT_PROFILES_DIR
     config:
+      # skip_pre_invoke=true keeps `dbt deps` from opening a warehouse connection,
+      # so the run exercises only the credentialed HTTPS package clone.
+      skip_pre_invoke: true
       project_dir: $MELTANO_PROJECT_ROOT/transform
       profiles_dir: $MELTANO_PROJECT_ROOT/transform/profile
+    commands:
+      deps:
+        args: deps
+        description: Pull the most recent version of the dependencies listed in packages.yml
+      run:
+        args: run
+        description: Compile SQL and execute against the current target database.
+      compile:
+        args: compile
+        description: Generates executable SQL from source, model, test, and analysis files.
+      test:
+        args: test
+        description: Runs tests on data in deployed models.
+      seed:
+        args: seed
+        description: Load data from csv files into your data warehouse.
+      debug:
+        args: debug
+        description: Debug your dbt project and warehouse connection.
 
 jobs:
 # `dbt deps` resolves and clones the dependencies in transform/packages.yml.

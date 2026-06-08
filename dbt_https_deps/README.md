@@ -17,7 +17,17 @@ https://oauth2:${DBT_ENV_SECRET_GIT_TOKEN}@github.com/Matatika/sit-dbt-private-p
 ```
 
 `dbt deps` does not connect to the warehouse, so no target database is needed —
-the run isolates the credentialed clone.
+the run isolates the credentialed clone. The plugin sets `skip_pre_invoke: true`
+to keep `dbt deps` from attempting a warehouse connection first.
+
+> **Note on the inline plugin definition.** The `dbt-postgres` utility is fully
+> self-described in `meltano.yml` (`executable`, `namespace`, `pip_url`,
+> `settings`, `commands`) rather than referenced by name + variant alone. The
+> platform's workspace deploy (`DataComponentLoader`) only creates a data
+> component for a plugin that is self-described or already installed; a bare
+> `name`/`variant` reference is skipped, and the pipeline then fails validation
+> with "Data component 'dbt-postgres' does not exist for the workspace default
+> environment". Keep the definition self-described.
 
 ## Fixture you must provide
 
