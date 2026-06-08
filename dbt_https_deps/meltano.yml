@@ -1,24 +1,17 @@
 version: 1
-# Example Meltano project used by the meltano-sit RunnerITCase to exercise
-# cloning a dbt package dependency over HTTPS with an embedded credential.
+# Example Meltano project used by the meltano-sit RunnerITCase to verify the
+# MEL-403 fix: when the workspace SSH key is surfaced to a pipeline/dbt task, an
+# HTTPS git clone still uses its own embedded credentials and is NOT overridden by
+# a platform-injected http.extraHeader.
 #
-# The pipeline below runs `dbt deps`, which clones the git package declared in
-# transform/packages.yml. That package is PRIVATE and is cloned over
-# https://oauth2:<token>@github.com/... — the exact path that regressed under
-# MEL-403 when the platform GitHub extraHeader was injected into pipeline stages
-# and overrode the per-repo token (GitHub then returns "Repository not found").
-#
-# Required at run time (see README.md):
-#   DBT_ENV_SECRET_GIT_TOKEN - a token with read access to the private package repo
+# The pipeline runs `dbt deps`, which clones the git package in
+# transform/packages.yml over HTTPS using arbitrary, intentionally-invalid
+# credentials. The clone is expected to fail with "Authentication failed" — that
+# failure proves our credentials were the ones sent (not overwritten). No real
+# token or private repo is required.
 send_anonymous_usage_stats: false
 project_id: fd5a56d0-e6d2-4ad0-9a4e-a41cc75d6462
 default_environment: staging
-
-# Pass the dbt git token through to the task environment so that the
-# {{ env_var('DBT_ENV_SECRET_GIT_TOKEN') }} reference in transform/packages.yml
-# resolves. The value must be present in the pipeline's run environment.
-env:
-  DBT_ENV_SECRET_GIT_TOKEN: ${DBT_ENV_SECRET_GIT_TOKEN}
 
 environments:
 - name: staging

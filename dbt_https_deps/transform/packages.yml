@@ -1,16 +1,18 @@
-# dbt package dependency cloned over HTTPS with an embedded credential.
+# dbt package dependency cloned over HTTPS with embedded credentials.
 #
-# This mirrors the customer scenario from the MEL-403 regression: a PRIVATE
-# package fetched via https://oauth2:<token>@github.com/... . The token is
-# supplied at run time via the DBT_ENV_SECRET_GIT_TOKEN environment variable
-# (dbt masks any env var prefixed DBT_ENV_SECRET_ in logs).
+# The credentials below are ARBITRARY and intentionally invalid — this fixture
+# does not need a real token or a real private repo. The point of the test is to
+# reproduce an HTTPS git clone from a pipeline/dbt task and prove the embedded
+# credentials reach GitHub *unchanged* (i.e. the platform does not inject an
+# overriding http.extraHeader, as it wrongly did under the MEL-403 regression).
 #
-# IMPORTANT (fixture the SIT owner must provide):
-#   - Replace the repo below with a PRIVATE dbt package repo that the
-#     DBT_ENV_SECRET_GIT_TOKEN can read but the platform GitHub App CANNOT.
-#     This is what makes the test a genuine regression guard: under the bug the
-#     platform extraHeader overrides the token and GitHub returns 404.
-#   - The target repo must be a valid dbt package (contains a dbt_project.yml).
+# Expected outcome: GitHub rejects these credentials with "Authentication failed"
+# — which proves they were the credentials actually sent. The SIT asserts that
+# message and expects the job to error (see the runner YAML). If the platform
+# overwrote the auth with its own token, GitHub would instead return a different
+# result (success, or "Repository not found"), and the test would fail.
+#
+# Do NOT replace these with real credentials.
 packages:
-  - git: "https://oauth2:{{ env_var('DBT_ENV_SECRET_GIT_TOKEN') }}@github.com/Matatika/sit-dbt-private-package.git"
+  - git: "https://sit-user:sit-not-a-real-token@github.com/Matatika/sit-dbt-https-marker.git"
     revision: main
