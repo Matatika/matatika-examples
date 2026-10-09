@@ -1,0 +1,38 @@
+default_environment: dev
+project_id: 01a11bf8-e53a-7cc8-8276-a455ca00b967
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-feefo
+    variant: matatika
+    pip_url: git+https://github.com/Matatika/tap-feefo.git
+    config:
+      start_date: 2026-10-01
+    select_filter:
+    - reviews
+  - name: tap-feefo--noths
+    inherit_from: tap-feefo
+    config:
+      merchant_id: notonthehighstreet-com
+  - name: tap-feefo--andertons
+    inherit_from: tap-feefo
+    config:
+      merchant_id: example-retail-merchant
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+schedules:
+- name: noths
+  interval: '@daily'
+  extractor: tap-feefo--noths
+  loader: target-jsonl
+  transform: skip
+- name: andertons
+  interval: '@daily'
+  extractor: tap-feefo--andertons
+  loader: target-jsonl
+  transform: skip

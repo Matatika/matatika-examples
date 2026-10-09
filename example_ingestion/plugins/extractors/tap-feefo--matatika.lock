@@ -1,0 +1,74 @@
+{
+  "plugin_type": "extractors",
+  "name": "tap-feefo",
+  "namespace": "tap-feefo",
+  "variant": "matatika",
+  "label": "Feefo",
+  "docs": "https://www.matatika.com/data-details/tap-feefo/",
+  "repo": "https://github.com/Matatika/tap-feefo",
+  "pip_url": "git+https://github.com/Matatika/tap-feefo.git",
+  "description": "Feefo is a customer review and feedback management platform that enables businesses to collect, analyze, and display verified customer reviews.",
+  "logo_url": "/assets/logos/extractors/feefo.svg",
+  "capabilities": [
+    "catalog",
+    "state",
+    "stream-maps",
+    "about",
+    "schema-flattening",
+    "batch",
+    "discover"
+  ],
+  "settings": [
+    {
+      "name": "merchant_id",
+      "kind": "string",
+      "label": "Merchant ID",
+      "description": "Feefo merchant ID (e.g. `example-retail-merchant`)",
+      "hidden": false,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "client_id",
+      "kind": "string",
+      "label": "Client ID",
+      "description": "Feefo app client ID\n\n`reviews`: set along with `client_secret` to include additional data\nonly returned by the API in an authenticated context ([more info](https://feefo.readme.io/reference/reviews-api-response))\n",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "client_secret",
+      "kind": "string",
+      "label": "Client secret",
+      "description": "Feefo app client secret\n\n`reviews`: set along with `client_id` to include additional data only returned by\nthe API in an authenticated context ([more info](https://feefo.readme.io/reference/reviews-api-response))\n",
+      "hidden": false,
+      "sensitive": true,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "start_date",
+      "kind": "date_iso8601",
+      "label": "Start date",
+      "description": "Timestamp in ISO 8601 format to get data from (inclusive)\n\nDefaults to the first day/month of the current year (e.g. `2025-01-01`)\n\n`reviews`: resolves to an updated period of `month`, `year` or `all` understood by\nthe API ([more info](https://feefo.readme.io/reference/reviews-api-request))\n",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "stream_maps",
+      "kind": "object",
+      "label": "Stream maps",
+      "description": "Config object for stream maps capability\n\nFor more information check out [stream maps](https://sdk.meltano.com/en/latest/stream_maps.html)\n",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    }
+  ]
+}
