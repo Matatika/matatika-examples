@@ -1,0 +1,96 @@
+{
+  "plugin_type": "extractors",
+  "name": "tap-sqlite",
+  "namespace": "tap_sqlite",
+  "variant": "marcossantiago",
+  "label": "SQLite",
+  "docs": "https://github.com/marcossantiago/tap-sqlite",
+  "repo": "https://github.com/marcossantiago/tap-sqlite",
+  "pip_url": "git+https://github.com/marcossantiago/tap-sqlite.git",
+  "description": "Singer tap for SQLite databases.",
+  "capabilities": [
+    "catalog",
+    "state",
+    "discover",
+    "activate-version",
+    "about",
+    "stream-maps",
+    "schema-flattening",
+    "batch",
+    "structured-logging"
+  ],
+  "settings": [
+    {
+      "name": "database_path",
+      "kind": "string",
+      "label": "Database path",
+      "description": "Absolute path to the SQLite database file.",
+      "hidden": false,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "tables",
+      "kind": "array",
+      "label": "Tables",
+      "description": "List of tables to sync. If omitted, all user tables are synced.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "default_replication_method",
+      "kind": "options",
+      "value": "FULL_TABLE",
+      "label": "Default replication method",
+      "description": "Default replication method: FULL_TABLE or INCREMENTAL.",
+      "options": [
+        {
+          "label": "Full table",
+          "value": "FULL_TABLE"
+        },
+        {
+          "label": "Incremental",
+          "value": "INCREMENTAL"
+        }
+      ],
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "replication_keys",
+      "kind": "object",
+      "label": "Replication keys",
+      "description": "Map of table name to replication key column.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "primary_keys",
+      "kind": "object",
+      "label": "Primary keys",
+      "description": "Map of table name to list of primary key columns.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "stream_maps",
+      "kind": "object",
+      "label": "Stream maps",
+      "description": "Config object for stream maps capability\n\nFor more information check out [stream maps](https://sdk.meltano.com/en/latest/stream_maps.html)\n",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    }
+  ]
+}

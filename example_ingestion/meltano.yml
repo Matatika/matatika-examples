@@ -6,33 +6,31 @@ environments:
 - name: prod
 plugins:
   extractors:
-  - name: tap-feefo
-    variant: matatika
-    pip_url: git+https://github.com/Matatika/tap-feefo.git
+  - name: tap-sqlite
+    variant: marcossantiago
+    pip_url: git+https://github.com/marcossantiago/tap-sqlite.git
     config:
-      start_date: 2026-10-01
-    select_filter:
-    - reviews
-  - name: tap-feefo--noths
-    inherit_from: tap-feefo
+      database_path: extract/example.sqlite
+  - name: tap-sqlite--products
+    inherit_from: tap-sqlite
     config:
-      merchant_id: notonthehighstreet-com
-  - name: tap-feefo--andertons
-    inherit_from: tap-feefo
+      tables: [products]
+  - name: tap-sqlite--orders
+    inherit_from: tap-sqlite
     config:
-      merchant_id: example-retail-merchant
+      tables: [orders, order_items]
   loaders:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
 schedules:
-- name: noths
+- name: products
   interval: '@daily'
-  extractor: tap-feefo--noths
+  extractor: tap-sqlite--products
   loader: target-jsonl
   transform: skip
-- name: andertons
+- name: orders
   interval: '@daily'
-  extractor: tap-feefo--andertons
+  extractor: tap-sqlite--orders
   loader: target-jsonl
   transform: skip
