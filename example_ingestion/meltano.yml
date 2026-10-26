@@ -1,0 +1,36 @@
+default_environment: dev
+project_id: 01a11bf8-e53a-7cc8-8276-a455ca00b967
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-sqlite
+    variant: marcossantiago
+    pip_url: git+https://github.com/marcossantiago/tap-sqlite.git
+    config:
+      database_path: extract/example.sqlite
+  - name: tap-sqlite--products
+    inherit_from: tap-sqlite
+    config:
+      tables: [products]
+  - name: tap-sqlite--orders
+    inherit_from: tap-sqlite
+    config:
+      tables: [orders, order_items]
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+schedules:
+- name: products
+  interval: '@daily'
+  extractor: tap-sqlite--products
+  loader: target-jsonl
+  transform: skip
+- name: orders
+  interval: '@daily'
+  extractor: tap-sqlite--orders
+  loader: target-jsonl
+  transform: skip

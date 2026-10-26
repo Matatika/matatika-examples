@@ -1,0 +1,46 @@
+{
+  "plugin_type": "loaders",
+  "name": "target-jsonl",
+  "namespace": "target_jsonl",
+  "variant": "andyh1203",
+  "label": "JSON Lines (JSONL)",
+  "docs": "https://www.matatika.com/data-details/target-jsonl/",
+  "repo": "https://github.com/andyh1203/target-jsonl",
+  "pip_url": "target-jsonl",
+  "description": "JSON Lines (JSONL) is a format for storing and exchanging structured data.\n\nJSON Lines (JSONL) is a lightweight data format that allows for the storage and exchange of structured data in a simple and efficient manner. It consists of a series of JSON objects separated by newlines, making it easy to read and parse. JSONL is commonly used for log files, data streams, and other applications where data needs to be processed in real-time. It can be easily converted to other formats such as CSV or JSON, and is supported by a wide range of programming languages and tools. Overall, JSONL is a versatile and powerful tool for working with structured data.",
+  "logo_url": "/assets/logos/loaders/jsonl.png",
+  "settings": [
+    {
+      "name": "destination_path",
+      "kind": "string",
+      "value": "output",
+      "label": "Destination Path",
+      "description": "The file path where the JSONL data will be saved.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "do_timestamp_file",
+      "kind": "boolean",
+      "value": false,
+      "label": "Include Timestamp in File Names",
+      "description": "Whether or not to include a timestamp in the file name of the saved JSONL data.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "custom_name",
+      "kind": "string",
+      "label": "Custom File Name Override",
+      "description": "A custom file name to use instead of the default file name when saving the JSONL data.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    }
+  ]
+}
